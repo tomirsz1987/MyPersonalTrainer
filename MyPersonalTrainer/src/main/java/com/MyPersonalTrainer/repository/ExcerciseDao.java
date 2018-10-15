@@ -9,7 +9,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.MyPersonalTrainer.domain.Excercise;
-import com.MyPersonalTrainer.domain.Series;
+
 
 @Transactional
 @Repository
@@ -20,8 +20,6 @@ public interface ExcerciseDao extends CrudRepository<Excercise, Integer> {
 		
 	List<Excercise> findAllByName(String name);
 	
-	Series save(Series series);
-		
 	@Query
 	List<Excercise> getExcerciseList(@Param("VALUE") int value);
 	

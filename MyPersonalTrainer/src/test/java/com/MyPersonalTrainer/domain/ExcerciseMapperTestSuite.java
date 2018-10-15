@@ -12,6 +12,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.MyPersonalTrainer.domain.Excercise;
+import com.MyPersonalTrainer.domain.ExcerciseDto;
+import com.MyPersonalTrainer.domain.ExcerciseMapper;
+import com.MyPersonalTrainer.domain.Series;
+
+
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class ExcerciseMapperTestSuite {
@@ -34,10 +40,9 @@ public class ExcerciseMapperTestSuite {
 	@Test
 	public void shouldMapExcerciseDtoToExcercise() {
 		//Given
-		LocalDateTime date = LocalDateTime.now();
-		User user = new User(1, "sampleMail@.gmail.com", "12345", 1);
+		LocalDateTime date = LocalDateTime.now();		
 		List<Series> series = new ArrayList<>();
-		ExcerciseDto excerciseDto = new ExcerciseDto(1, date, "name", 1, series, user);
+		ExcerciseDto excerciseDto = new ExcerciseDto(1, date, "name", 1, series);
 		
 		//When
 		Excercise result = mapper.mapToExcercise(excerciseDto);

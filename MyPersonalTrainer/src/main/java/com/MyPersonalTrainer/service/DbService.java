@@ -88,7 +88,7 @@ public class DbService {
 			if(resultList.get(n).getNumber() == doneSeries.getSeriesNumber()) {
 				Series s1 = resultList.get(n);
 				s1.buildDoneSeries(s1, doneSeries.getDoneWeight(), doneSeries.getDoneReps(), doneSeries.getDate());
-				excerciseDao.save(s1);
+				seriesDao.save(s1);
 			}
 		}	
 	}

@@ -38,6 +38,7 @@ public class DbServiceTestSuite {
 		Excercise excercise3 = new Excercise(date3, "Bench Press", 1, series);
 		
 		//When
+		long resultBefore = excerciseDao.count();
 		dbService.addExcercise(excercise1);
 		dbService.addExcercise(excercise2);
 		dbService.addExcercise(excercise3);
@@ -47,7 +48,7 @@ public class DbServiceTestSuite {
 		long result = excerciseDao.count();
 		
 		//Then
-		assertEquals(3 + result, result);
+		assertEquals(resultBefore + 3, result);
 		
 		//CleanUp
 		excerciseDao.deleteById(id1);
@@ -91,6 +92,7 @@ public class DbServiceTestSuite {
 		Excercise excercise3 = new Excercise(date3, "Bench Press", 1, series);
 		
 		//When
+		long resultBefore = excerciseDao.count();
 		excerciseDao.save(excercise1);
 		excerciseDao.save(excercise2);
 		excerciseDao.save(excercise3);
@@ -100,9 +102,9 @@ public class DbServiceTestSuite {
 		long result = excerciseDao.count();
 		
 		//Then
-		assertEquals(3 + result, result);
+		assertEquals(resultBefore + 3, result);
 		dbService.deleteExcercise(name);
-		assertEquals(2 + result, result - 1);
+		assertEquals(2 + resultBefore, result - 1);
 		
 		//CleanUp
 		excerciseDao.deleteById(id2);
@@ -122,6 +124,7 @@ public class DbServiceTestSuite {
 		Excercise excercise3 = new Excercise(date3, "Bench Press", 1, series);
 	 
 		//When
+		int resultBefore = dbService.showAllExcercises().size();
 		excerciseDao.save(excercise1);
 		excerciseDao.save(excercise2);
 		excerciseDao.save(excercise3);
@@ -131,7 +134,7 @@ public class DbServiceTestSuite {
 		int result = dbService.showAllExcercises().size();
 		
 		//Then
-		assertEquals(3 + result, result);
+		assertEquals(3 + resultBefore, result);
 		
 		//CleanUp
 		excerciseDao.deleteById(id1);
