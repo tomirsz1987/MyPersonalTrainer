@@ -7,28 +7,29 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class ExcerciseMapper {
-
+	
 	public ExcerciseDto mapToExcerciseDto(Excercise excercise) {
 		return new ExcerciseDto(
 				excercise.getId(),
+				excercise.getAddingTime(),
 				excercise.getName(),
-				excercise.getSeries(),
-				excercise.getReps(),
-				excercise.getWeight());
+				excercise.getMicrocycleNo(),
+				excercise.getSeries());
+		
 	}
 	
 	public Excercise mapToExcercise(ExcerciseDto excerciseDto) {
 		return new Excercise(
 				excerciseDto.getId(),
+				excerciseDto.getAddingTime(),
 				excerciseDto.getName(),
-				excerciseDto.getSeries(),
-				excerciseDto.getReps(),
-				excerciseDto.getWeight());
+				excerciseDto.getMicrocycleNo(),
+				excerciseDto.getSeries());
 	}
 	
 	public List<ExcerciseDto> mapToExcerciseDtoList(List<Excercise> excerciseList) {
 		return excerciseList.stream()
-				.map(e -> new ExcerciseDto(e.getId(), e.getName(), e.getSeries(), e.getReps(), e.getWeight()))
+				.map(e -> new ExcerciseDto(e.getId(), e.getAddingTime(), e.getName(),e.getMicrocycleNo(), e.getSeries()))
 				.collect(Collectors.toList());
 	}
 }

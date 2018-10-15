@@ -1,78 +1,128 @@
 package com.MyPersonalTrainer.domain;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedNativeQueries;
+import javax.persistence.NamedNativeQuery;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
-@NoArgsConstructor
+@NamedQuery(
+	name = "Excercise.getExcerciseList",
+	query = "FROM Excercise WHERE microcycle_no = :VALUE"
+	)
+
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity
-@Table(name= "EXCERCISE")
+@Table(name = "EXCERCISE")
 public class Excercise {
+	private int id;
+	private LocalDateTime addingTime;
+	private String name;
+	private int microcycleNo;
+	private List<Series> excercise = new ArrayList<>();
+	
+	public Excercise(LocalDateTime addingTime, String name, int microcycleNo, List<Series> excercise) {
+		this.addingTime = addingTime.now();
+		this.name = name;
+		this.microcycleNo = microcycleNo;		
+		this.excercise = excercise;
+	}
+	
 	@Column(name = "ID", unique = true)
-	@Id
 	@GeneratedValue
 	@NotNull
-	private int id;
-	@Column(name = "NAME")
-	private String name;
-	@Column(name = "SERIES")
-	private int series;
-	@Column(name = "REPS")
-	private int reps;
-	@Column(name = "WEIGHT")
-	private double weight;
-	
-	public Excercise(String name, int series, int reps, double weight) {
-		this.name = name;
-		this.series = series;
-		this.reps = reps;
-		this.weight = weight;
-	}
-
+	@Id
 	public int getId() {
 		return id;
 	}
-
 	private void setId(int id) {
 		this.id = id;
 	}
-
+	@Column(name = "ADDING_TIME")
+	public LocalDateTime getAddingTime() {
+		return addingTime;
+	}
+	public void setAddingTime(LocalDateTime addingTime) {
+		this.addingTime = addingTime;
+	}
+	@Column(name = "NAME")
 	public String getName() {
 		return name;
 	}
-
 	private void setName(String name) {
 		this.name = name;
 	}
-
-	public int getSeries() {
-		return series;
+	@Column(name = "MICROCYCLE_NO")
+	public int getMicrocycleNo() {
+		return microcycleNo;
 	}
-
-	private void setSeries(int series) {
-		this.series = series;
+	private void setMicrocycleNo(int microcycleNo) {
+		this.microcycleNo = microcycleNo;
 	}
-
-	public int getReps() {
-		return reps;
+	@JsonIgnore
+	@Column(name = "SERIES")
+	@OneToMany(
+			targetEntity = Series.class,
+			mappedBy = "excercise",
+			cascade = CascadeType.ALL,
+			fetch = FetchType.EAGER
+			)
+	public List<Series> getSeries() {
+		return excercise;
 	}
-
-	private void setReps(int reps) {
-		this.reps = reps;
+	public void setSeries(List<Series> excercise) {
+		this.excercise = excercise;
 	}
-
-	public double getWeight() {
-		return weight;
-	}
-
-	private void setWeight(double weight) {
-		this.weight = weight;
+	
+	public static class ExcerciseBuilder {
+		
+		private String name;
+		private LocalDateTime addingTime;
+		private int microcycleNo;
+		private List<Series> excercise = new ArrayList<>();
+		
+		
+		public ExcerciseBuilder setName(String name) {
+			this.name = name;
+			return this;
+		}
+		
+		public ExcerciseBuilder setExcerciseNumber(LocalDateTime addingTime) {
+			this.addingTime = addingTime;
+			return this;
+		}
+		
+		public ExcerciseBuilder setMicrocycleNo(int microcycleNo) {
+			this.microcycleNo = microcycleNo;
+			return this;
+		}
+		
+		public ExcerciseBuilder setSeriesList(List<Series> excercise) {
+			this.excercise = excercise;
+			return this;
+		}
+		
+		public Excercise built() {
+			return new Excercise(addingTime, name, microcycleNo, excercise);
+		}
 	}
 }

@@ -2,6 +2,7 @@ package com.MyPersonalTrainer.domain;
 
 import static org.junit.Assert.assertEquals;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,11 +17,13 @@ import org.springframework.test.context.junit4.SpringRunner;
 public class ExcerciseMapperTestSuite {
 	@Autowired
 	ExcerciseMapper mapper;
-	
+ 
 	@Test
 	public void shouldMapExcerciseToExcerciseDto() {
 		//Given
-		Excercise excercise = new Excercise(1, "name", 2, 3, 4.0);
+		LocalDateTime date = LocalDateTime.now();
+		List<Series> series = new ArrayList<>();
+		Excercise excercise = new Excercise(date, "testName", 1, series);
 		
 		//When
 		ExcerciseDto result = mapper.mapToExcerciseDto(excercise);
@@ -31,7 +34,10 @@ public class ExcerciseMapperTestSuite {
 	@Test
 	public void shouldMapExcerciseDtoToExcercise() {
 		//Given
-		ExcerciseDto excerciseDto = new ExcerciseDto(1, "name", 2, 3, 4.0);
+		LocalDateTime date = LocalDateTime.now();
+		User user = new User(1, "sampleMail@.gmail.com", "12345", 1);
+		List<Series> series = new ArrayList<>();
+		ExcerciseDto excerciseDto = new ExcerciseDto(1, date, "name", 1, series, user);
 		
 		//When
 		Excercise result = mapper.mapToExcercise(excerciseDto);
@@ -43,13 +49,21 @@ public class ExcerciseMapperTestSuite {
 	@Test
 	public void shouldMapExcerciseListToExcerciseDtoList() {
 		//Given
-		List<Excercise> excerciseList = new ArrayList();
-		Excercise excercise1 = new Excercise(1, "name", 21, 31, 14.0);
-		Excercise excercise2 = new Excercise(12, "name", 232, 32, 24.0);
-		Excercise excercise3 = new Excercise(123, "name", 245, 32, 4.3);
-		Excercise excercise4 = new Excercise(11234, "name", 245, 43, 12.0);
-		Excercise excercise5 = new Excercise(112345, "name", 22, 43, 4.3);
-		Excercise excercise6 = new Excercise(1123456, "name", 223, 345, 4.44);
+		LocalDateTime date1 = LocalDateTime.now();
+		LocalDateTime date2 = LocalDateTime.now();
+		LocalDateTime date3 = LocalDateTime.now();
+		LocalDateTime date4 = LocalDateTime.now();
+		LocalDateTime date5 = LocalDateTime.now();
+		LocalDateTime date6 = LocalDateTime.now();
+		
+		List<Series> series = new ArrayList<>();
+		List<Excercise> excerciseList = new ArrayList<>();
+		Excercise excercise1 = new Excercise(date1, "name", 1, series);
+		Excercise excercise2 = new Excercise(date2,  "name", 12,  series);
+		Excercise excercise3 = new Excercise(date3, "name", 123,  series);
+		Excercise excercise4 = new Excercise(date4, "name", 1234, series);
+		Excercise excercise5 = new Excercise(date5, "name", 12345, series);
+		Excercise excercise6 = new Excercise(date6, "name", 123456, series);
 	
 		//When
 		excerciseList.add(excercise1);
