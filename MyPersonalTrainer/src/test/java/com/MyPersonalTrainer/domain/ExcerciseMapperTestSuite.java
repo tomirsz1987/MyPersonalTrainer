@@ -23,13 +23,15 @@ import com.MyPersonalTrainer.domain.Series;
 public class ExcerciseMapperTestSuite {
 	@Autowired
 	ExcerciseMapper mapper;
- 
+
 	@Test
 	public void shouldMapExcerciseToExcerciseDto() {
 		//Given
 		LocalDateTime date = LocalDateTime.now();
 		List<Series> series = new ArrayList<>();
-		Excercise excercise = new Excercise(date, "testName", 1, series);
+		List<Excercise> excerciseList = new ArrayList<>();
+		User user = new User(12, "Tom12", "Password", excerciseList);
+		Excercise excercise = new Excercise(date, "testName", 1, series, user);
 		
 		//When
 		ExcerciseDto result = mapper.mapToExcerciseDto(excercise);
@@ -37,12 +39,15 @@ public class ExcerciseMapperTestSuite {
 		//Then
 		assertEquals(excercise.getName(), result.getName());
 	}
+	
 	@Test
 	public void shouldMapExcerciseDtoToExcercise() {
 		//Given
 		LocalDateTime date = LocalDateTime.now();		
 		List<Series> series = new ArrayList<>();
-		ExcerciseDto excerciseDto = new ExcerciseDto(1, date, "name", 1, series);
+		List<Excercise> excerciseList = new ArrayList<>();
+		User user = new User(12, "Tom12", "Password", excerciseList);
+		ExcerciseDto excerciseDto = new ExcerciseDto(1, date, "name", 1, series, user);
 		
 		//When
 		Excercise result = mapper.mapToExcercise(excerciseDto);
@@ -51,6 +56,7 @@ public class ExcerciseMapperTestSuite {
 		assertEquals(excerciseDto.getName(), result.getName());
 		
 	}
+	
 	@Test
 	public void shouldMapExcerciseListToExcerciseDtoList() {
 		//Given
@@ -63,12 +69,13 @@ public class ExcerciseMapperTestSuite {
 		
 		List<Series> series = new ArrayList<>();
 		List<Excercise> excerciseList = new ArrayList<>();
-		Excercise excercise1 = new Excercise(date1, "name", 1, series);
-		Excercise excercise2 = new Excercise(date2,  "name", 12,  series);
-		Excercise excercise3 = new Excercise(date3, "name", 123,  series);
-		Excercise excercise4 = new Excercise(date4, "name", 1234, series);
-		Excercise excercise5 = new Excercise(date5, "name", 12345, series);
-		Excercise excercise6 = new Excercise(date6, "name", 123456, series);
+		User user = new User(12, "Tom12", "Password", excerciseList);
+		Excercise excercise1 = new Excercise(date1, "name", 1, series, user);
+		Excercise excercise2 = new Excercise(date2,  "name", 12,  series, user);
+		Excercise excercise3 = new Excercise(date3, "name", 123,  series, user);
+		Excercise excercise4 = new Excercise(date4, "name", 1234, series, user);
+		Excercise excercise5 = new Excercise(date5, "name", 12345, series, user);
+		Excercise excercise6 = new Excercise(date6, "name", 123456, series, user);
 	
 		//When
 		excerciseList.add(excercise1);

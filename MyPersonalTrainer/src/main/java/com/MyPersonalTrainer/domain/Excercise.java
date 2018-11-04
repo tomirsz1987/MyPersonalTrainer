@@ -1,3 +1,4 @@
+
 package com.MyPersonalTrainer.domain;
 
 import java.time.LocalDateTime;
@@ -26,7 +27,7 @@ import lombok.NoArgsConstructor;
 
 @NamedQuery(
 	name = "Excercise.getExcerciseList",
-	query = "FROM Excercise WHERE microcycle_no = :VALUE"
+	query = "FROM Excercise WHERE microcycle_no = :VALUE AND user_id = :USER"
 	)
 
 @AllArgsConstructor
@@ -39,12 +40,14 @@ public class Excercise {
 	private String name;
 	private int microcycleNo;
 	private List<Series> excercise = new ArrayList<>();
+	private User userId;
 	
-	public Excercise(LocalDateTime addingTime, String name, int microcycleNo, List<Series> excercise) {
-		this.addingTime = addingTime.now();
+	public Excercise(LocalDateTime addingTime, String name, int microcycleNo, List<Series> excercise, User userId) {
+		this.addingTime = LocalDateTime.now();
 		this.name = name;
 		this.microcycleNo = microcycleNo;		
 		this.excercise = excercise;
+		this.userId = userId;
 	}
 	
 	@Column(name = "ID", unique = true)
@@ -92,6 +95,15 @@ public class Excercise {
 	public void setSeries(List<Series> excercise) {
 		this.excercise = excercise;
 	}
+	@ManyToOne
+	@JoinColumn(name = "UserId")
+	public User getUser() {
+		return userId;
+	}
+	
+	public void setUser(User userId) {
+		this.userId = userId;
+	}
 	
 	public static class ExcerciseBuilder {
 		
@@ -99,7 +111,7 @@ public class Excercise {
 		private LocalDateTime addingTime;
 		private int microcycleNo;
 		private List<Series> excercise = new ArrayList<>();
-		
+		private User userId;
 		
 		public ExcerciseBuilder setName(String name) {
 			this.name = name;
@@ -121,8 +133,13 @@ public class Excercise {
 			return this;
 		}
 		
+		public ExcerciseBuilder setUser(User userId) {
+			this.userId = userId;
+			return this;
+		}
+		
 		public Excercise built() {
-			return new Excercise(addingTime, name, microcycleNo, excercise);
+			return new Excercise(addingTime, name, microcycleNo, excercise, userId);
 		}
 	}
 }

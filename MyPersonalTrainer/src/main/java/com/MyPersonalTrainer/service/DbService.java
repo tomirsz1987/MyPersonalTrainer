@@ -5,13 +5,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.MyPersonalTrainer.domain.DoneSeries;
 import com.MyPersonalTrainer.domain.Excercise;
 import com.MyPersonalTrainer.repository.ExcerciseDao;
 import com.MyPersonalTrainer.repository.SeriesDao;
+import com.MyPersonalTrainer.repository.UserDao;
 import com.MyPersonalTrainer.domain.Series;
+import com.MyPersonalTrainer.domain.User;
 
 @Service
 public class DbService {
@@ -21,12 +24,20 @@ public class DbService {
 	@Autowired
 	private SeriesDao seriesDao;
 	
+	@Autowired
+	private UserDao userDao;
+	
+	@Autowired
+	private UserService userService;
+	
 	public Excercise addExcercise(Excercise excercise) {
 		LocalDateTime dateTime = LocalDateTime.now();
-		excercise.setAddingTime(dateTime);
+		excercise.setAddingTime(dateTime);	
+		User loggedUser = userService.findOne(SecurityContextHolder.getContext().getAuthentication().getName());
+		excercise.setUser(loggedUser);
 		return excerciseDao.save(excercise);
 	}
-	
+
 	public void deleteExcercise(String name) {
 		excerciseDao.deleteByName(name);
 		
@@ -80,8 +91,6 @@ public class DbService {
 	}
 	
 	public void updateSeries(DoneSeries doneSeries) {
-		System.out.println(doneSeries.getSeriesNumber());
-		System.out.println("DbService ok");
 		Excercise e1 = excerciseDao.findById(doneSeries.getExcerciseId());
 		List<Series> resultList = e1.getSeries();
 		for(int n = 0; n< resultList.size(); n++) {
@@ -94,8 +103,11 @@ public class DbService {
 	}
 	
 	public List<Excercise> getExcercisesListWithParam(int value) {
-		List<Excercise> wholeList = (List<Excercise>) excerciseDao.getExcerciseList(value);
+		System.out.println(value);
+		User loggedUser = userService.findOne(SecurityContextHolder.getContext().getAuthentication().getName());
+		long userId = loggedUser.getId();
+		List<Excercise> wholeList = (List<Excercise>) excerciseDao.getExcerciseList(value, userId);
 		return wholeList;
 	}
-	
+
 }

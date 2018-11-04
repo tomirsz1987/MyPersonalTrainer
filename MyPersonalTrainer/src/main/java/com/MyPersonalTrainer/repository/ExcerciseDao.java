@@ -14,6 +14,7 @@ import com.MyPersonalTrainer.domain.Excercise;
 @Transactional
 @Repository
 public interface ExcerciseDao extends CrudRepository<Excercise, Integer> {
+	
 	void deleteByName(String name);
 	
 	Excercise findById(int id);
@@ -21,6 +22,6 @@ public interface ExcerciseDao extends CrudRepository<Excercise, Integer> {
 	List<Excercise> findAllByName(String name);
 	
 	@Query
-	List<Excercise> getExcerciseList(@Param("VALUE") int value);
+	List<Excercise> getExcerciseList(@Param("VALUE") int value, @Param("USER") long userId);
 	
 }

@@ -19,9 +19,9 @@ import com.MyPersonalTrainer.domain.SeriesMapper;
 import com.MyPersonalTrainer.service.DbService;
 
 @RestController
-@RequestMapping("v1/MyPersonalTrainer/")
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 public class ExcerciseController {
+	
 	@Autowired
 	DbService dbService;
 	
@@ -31,18 +31,22 @@ public class ExcerciseController {
 	@Autowired
 	SeriesMapper seriesMapper;
 	
+	
 	@RequestMapping(method=RequestMethod.POST, value = "createExcercise", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ExcerciseDto createExcercise(@RequestBody ExcerciseDto excerciseDto) {
 		return excerciseMapper.mapToExcerciseDto(dbService.addExcercise(excerciseMapper.mapToExcercise(excerciseDto)));
 	}
+	
 	@RequestMapping(method=RequestMethod.DELETE, value = "deleteExcercise")
 	public void deleteExcercise(@RequestParam String name) {
 		dbService.deleteExcercise(name);
 	}
+	
 	@RequestMapping(method=RequestMethod.GET, value = "getExcercise")
 	public ExcerciseDto getExcercise(@RequestParam int id) {
 		return excerciseMapper.mapToExcerciseDto(dbService.getExcercise(id));
 	}
+	
 	@RequestMapping(method=RequestMethod.GET, value = "getExcerciseListByName")
 	public List<ExcerciseDto> getExcerciseListByName(@RequestParam String name) {
 		return excerciseMapper.mapToExcerciseDtoList(dbService.getExcerciseListByName(name));
@@ -52,10 +56,12 @@ public class ExcerciseController {
 	public List<Series> getChartData(@RequestParam String name) {
 		return dbService.getChartData(name);
 	}
+	
 	@RequestMapping(method=RequestMethod.POST, value = "addSeries", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ExcerciseDto addSeries(@RequestParam int id, @RequestBody Series series) throws Exception {
 		return excerciseMapper.mapToExcerciseDto(dbService.addSeries(id, series));
 	}
+	
 	@RequestMapping(method=RequestMethod.PUT, value = "updateSeries", consumes=MediaType.APPLICATION_JSON_VALUE)
 	public void updateSeries(@RequestBody DoneSeries doneSeries) {
 		System.out.println("Contorller ok");
@@ -66,6 +72,7 @@ public class ExcerciseController {
 	public List<ExcerciseDto> excercisesListWithParam(@RequestParam int value) {
 		return excerciseMapper.mapToExcerciseDtoList(dbService.getExcercisesListWithParam(value));
 	}
+	
 	@RequestMapping(method=RequestMethod.GET, value = "getSeries")
 	public List<Series> seriesList(@RequestParam int id) throws Exception {
 		return dbService.showAllSeries(id);

@@ -14,7 +14,8 @@ public class ExcerciseMapper {
 				excercise.getAddingTime(),
 				excercise.getName(),
 				excercise.getMicrocycleNo(),
-				excercise.getSeries());
+				excercise.getSeries(),
+				excercise.getUser());
 		
 	}
 	
@@ -24,12 +25,13 @@ public class ExcerciseMapper {
 				excerciseDto.getAddingTime(),
 				excerciseDto.getName(),
 				excerciseDto.getMicrocycleNo(),
-				excerciseDto.getSeries());
+				excerciseDto.getSeries(),
+				excerciseDto.getUserId());
 	}
 	
 	public List<ExcerciseDto> mapToExcerciseDtoList(List<Excercise> excerciseList) {
 		return excerciseList.stream()
-				.map(e -> new ExcerciseDto(e.getId(), e.getAddingTime(), e.getName(),e.getMicrocycleNo(), e.getSeries()))
+				.map(e -> new ExcerciseDto(e.getId(), e.getAddingTime(), e.getName(),e.getMicrocycleNo(), e.getSeries(), e.getUser()))
 				.collect(Collectors.toList());
 	}
 }

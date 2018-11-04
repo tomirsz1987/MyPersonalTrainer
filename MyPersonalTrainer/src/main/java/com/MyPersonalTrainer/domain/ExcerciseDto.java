@@ -7,6 +7,7 @@ import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
 @NoArgsConstructor
@@ -17,4 +18,5 @@ public class ExcerciseDto {
 	private String name;
 	private int microcycleNo;
 	private List<Series> series = new ArrayList<>();
+	private User userId;
 }
