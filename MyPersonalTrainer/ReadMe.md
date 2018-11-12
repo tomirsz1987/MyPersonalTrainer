@@ -31,7 +31,7 @@ I'm making this app for two  reasons. Firstly because I need tool for my trainin
 Describe how to install / setup your local environement / add link to demo version.
 
 ## Features
-* Adding a excercises and seve them in database
+* Adding a exercises and seve them in database
 * Generate microcycles for your future trainings
 * You can predicated how strong you will be
 
