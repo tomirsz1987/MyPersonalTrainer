@@ -15,9 +15,9 @@
 I'm making this app for two  reasons. Firstly because I need tool for my trainings (I always forget what weight should I put on bar). Second - because I wanted to tought Angular and Spring Security. 
 
 ## Screenshots
-![Example screenshot](./img/screenshot1.png)
-![Example screenshot](./img/screenshot2.png)
-![Example screenshot](./img/screenshot3.png)
+![Example screenshot](./img/screenshot_1.png)
+![Example screenshot](./img/screenshot_2.png)
+![Example screenshot](./img/screenshot_3.png)
 
 ## Technologies
 * Java8
