@@ -2,7 +2,6 @@
 > It's a tool for planing your gym trainings. Set-up your max weight and generate microcycles, which help you gain maxiumum effects.
 
 ## Table of contents
-* [Project info](#project-info)
 * [Screenshots](#screenshots)
 * [Technologies](#technologies)
 * [Setup](#setup)
@@ -28,10 +27,10 @@ I'm making this app for two  reasons. Firstly because I need tool for my trainin
 * Angular - version 6.0.8.
 
 ## Setup
-Describe how to install / setup your local environement / add link to demo version.
+Download repository and run in your IDE. You may check working app [here](https://www.tomirsz1987.github.io/login)
 
 ## Features
-* Adding a exercises and seve them in database
+* Adding a exercises and save them in database
 * Generate microcycles for your future trainings
 * You can predicated how strong you will be
 
@@ -39,9 +38,11 @@ To-do list:
 * Add tests for controllers 
 * Add integration tests
 * Add tests for frontend
-* Add form validators (front and back)
+* Add form validators (back)
+* Add async validators to signup component
+* Add mobile version
 * Clean up code and refactor
-* Deploy app
+* Deploy finished app
 
 ## Status
 Project is: _in progress_
